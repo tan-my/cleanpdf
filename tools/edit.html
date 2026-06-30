@@ -53,16 +53,37 @@
           <div class="sidebar-group">
             <h2 class="sidebar-title">Tools</h2>
             <div class="tool-buttons" id="toolbar">
-              <button class="tool-button" data-tool="text"><span>🅣</span> Add Text</button>
-              <button class="tool-button" data-tool="highlight"><span>🖍️</span> Highlight</button>
-              <button class="tool-button" data-tool="pen"><span>✏️</span> Draw / Pen</button>
-              <button class="tool-button" data-tool="rect"><span>▭</span> Rectangle</button>
-              <button class="tool-button" data-tool="stamp"><span>✍️</span> Signature / Stamp</button>
+              <button class="tool-button" data-tool="select"><span>🖱</span> Select</button>
+              <button class="tool-button" data-tool="text"><span>📝</span> Text</button>
+              <button class="tool-button" data-tool="pen"><span>✍</span> Pen</button>
+              <button class="tool-button" data-tool="highlight"><span>🖍</span> Highlight</button>
+
+              <div class="shape-tool-wrap">
+                <button class="tool-button" id="shapesBtn" data-tool="shape">
+                  <span>⬜</span> Shapes <span class="caret">▼</span>
+                </button>
+                <div class="shape-popover" id="shapePopover" hidden>
+                  <button class="shape-opt" data-shape="rect" title="Rectangle">▭</button>
+                  <button class="shape-opt" data-shape="roundRect" title="Rounded Rectangle">▢</button>
+                  <button class="shape-opt" data-shape="circle" title="Circle">●</button>
+                  <button class="shape-opt" data-shape="ellipse" title="Ellipse">⬭</button>
+                  <button class="shape-opt" data-shape="triangle" title="Triangle">▲</button>
+                  <button class="shape-opt" data-shape="diamond" title="Diamond">◆</button>
+                  <button class="shape-opt" data-shape="arrow" title="Arrow">➜</button>
+                  <button class="shape-opt" data-shape="line" title="Line">╱</button>
+                  <button class="shape-opt" data-shape="star" title="Star">★</button>
+                </div>
+              </div>
+
+              <button class="tool-button" data-tool="stamp"><span>✒</span> Signature</button>
             </div>
           </div>
 
-          <div class="sidebar-group" id="textProps">
-            <h2 class="sidebar-title">Text Properties</h2>
+          <div class="sidebar-group collapsible" id="textProps">
+            <button class="sidebar-title group-header" type="button" aria-expanded="true">
+              <span class="group-caret">▼</span> Text Properties
+            </button>
+            <div class="group-body">
 
             <label class="opt-row">
               <span>Font</span>
@@ -140,17 +161,83 @@
             <p class="props-hint tiny" id="propsHint">
               Select or add a text box to edit its style.
             </p>
+            </div>
           </div>
 
-          <div class="sidebar-group" id="editGroup">
-            <h2 class="sidebar-title">Edit</h2>
-            <div class="tool-buttons">
-              <button class="tool-button ghost" id="undoBtn"><span>↩</span> Undo</button>
-              <button class="tool-button ghost" id="clearBtn"><span>🗑️</span> Clear Page</button>
+          <div class="sidebar-group collapsible" id="shapeProps">
+            <button class="sidebar-title group-header" type="button" aria-expanded="true">
+              <span class="group-caret">▼</span> Shape Properties
+            </button>
+            <div class="group-body">
+
+            <label class="opt-row">
+              <span>Fill</span>
+              <span class="color-controls">
+                <select id="fillPreset" class="color-select"></select>
+                <input type="color" id="fillPicker" value="#1d4ed8" title="Fill color" />
+              </span>
+            </label>
+
+            <label class="opt-row">
+              <span>Border</span>
+              <span class="color-controls">
+                <select id="strokePreset" class="color-select"></select>
+                <input type="color" id="strokePicker" value="#000000" title="Border color" />
+              </span>
+            </label>
+
+            <label class="opt-row">
+              <span>Border width</span>
+              <select id="borderWidth" class="num-input">
+                <option value="0">0 px</option>
+                <option value="1">1 px</option>
+                <option value="2" selected>2 px</option>
+                <option value="3">3 px</option>
+                <option value="4">4 px</option>
+                <option value="6">6 px</option>
+                <option value="8">8 px</option>
+                <option value="10">10 px</option>
+              </select>
+            </label>
+
+            <label class="opt-row">
+              <span>Opacity</span>
+              <input type="range" id="shapeOpacity" min="0" max="100" value="100" />
+            </label>
+
+            <label class="opt-row" id="cornerRadiusRow" hidden>
+              <span>Corner radius</span>
+              <input type="number" id="cornerRadius" class="num-input" value="12" min="0" max="200" />
+            </label>
+
+            <label class="opt-row">
+              <span>Rotation</span>
+              <input type="number" id="shapeRotation" class="num-input" value="0" min="-180" max="180" step="5" />
+            </label>
+
+            <div class="fmt-row">
+              <button class="btn-sm" id="sBringForward" title="Bring forward">▲</button>
+              <button class="btn-sm" id="sToFront" title="Bring to front">⤒</button>
+              <button class="btn-sm" id="sSendBackward" title="Send backward">▼</button>
+              <button class="btn-sm" id="sToBack" title="Send to back">⤓</button>
+            </div>
+
+            <div class="fmt-row">
+              <button class="btn-sm" id="sDuplicate">Duplicate</button>
+              <button class="btn-sm danger" id="sDelete">Delete</button>
+            </div>
+
+            <p class="props-hint tiny" id="shapeHint">
+              These settings apply to the next shape you draw.
+            </p>
             </div>
           </div>
 
           <div class="editor-actions">
+            <div class="fmt-row">
+              <button class="btn-sm" id="undoBtn">↩ Undo</button>
+              <button class="btn-sm" id="redoBtn">↪ Redo</button>
+            </div>
             <button class="btn btn-primary block" id="exportBtn">Export PDF</button>
             <p class="status tiny" id="status"></p>
           </div>
