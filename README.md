@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CleanPDF
 
 Free, ad-free, privacy-first PDF tools that run entirely in the browser.
@@ -101,3 +102,7 @@ donation link placeholder `#` in the pages with your own.)_
 ## License
 
 Add your preferred license here.
+=======
+# cleanpdf
+Free, privacy-first PDF tools that run entirely in your browser. No uploads. No ads.
+>>>>>>> 14c4853d04cfc476660cabdf92a72e29cacac0f1
