@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rotate PDF — CleanPDF</title>
+  <meta name="description" content="Rotate every page of a PDF and download it, entirely in your browser. No uploads." />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark">📄</span>
+        <span class="brand-name">CleanPDF</span>
+      </a>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="merge.html">Merge PDF</a>
+        <a href="images-to-pdf.html">Images to PDF</a>
+        <a href="rotate.html">Rotate PDF</a>
+        <a href="edit.html">Edit PDF</a>
+        <a href="../index.html#support">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-page">
+    <div class="container">
+      <a class="back-link" href="../index.html">← All tools</a>
+
+      <div class="tool-header">
+        <h1>Rotate PDF</h1>
+        <p>Rotate every page of a PDF and save the result. Your file stays on your device.</p>
+      </div>
+
+      <div class="tool-panel">
+        <p class="privacy-note">
+          🔒 Privacy-first: your files are processed locally in your browser
+          and never uploaded.
+        </p>
+
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="fileInput" accept="application/pdf" />
+          <strong>Click to choose a PDF</strong> or drag &amp; drop it here.
+        </label>
+
+        <ul class="file-list" id="fileList"></ul>
+
+        <div class="field-row">
+          <label for="angle">Rotation</label>
+          <select id="angle">
+            <option value="left">Rotate left 90°</option>
+            <option value="right">Rotate right 90°</option>
+            <option value="180">Rotate 180°</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="rotateBtn" disabled>Rotate PDF</button>
+        </div>
+
+        <p class="status" id="status"></p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Everything runs in your browser. Nothing is uploaded.</p>
+      <a href="#" target="_blank" rel="noopener">GitHub project →</a>
+    </div>
+  </footer>
+
+  <!-- pdf-lib from CDN: all PDF work happens client-side, no backend. -->
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="../js/rotate.js"></script>
+</body>
+</html>

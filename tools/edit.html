@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit PDF — CleanPDF</title>
+  <meta name="description" content="Add text, highlights, drawings, and simple marks to your PDF, entirely in your browser. No uploads." />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark">📄</span>
+        <span class="brand-name">CleanPDF</span>
+      </a>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="merge.html">Merge PDF</a>
+        <a href="images-to-pdf.html">Images to PDF</a>
+        <a href="rotate.html">Rotate PDF</a>
+        <a href="edit.html">Edit PDF</a>
+        <a href="../index.html#support">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-page editor-page">
+    <div class="container-wide">
+      <div class="editor-topbar">
+        <div>
+          <a class="back-link" href="../index.html">← All tools</a>
+          <h1>Edit PDF</h1>
+        </div>
+        <p class="privacy-note compact">
+          🔒 Processed locally in your browser. Never uploaded.
+        </p>
+      </div>
+
+      <div class="editor-shell">
+        <!-- LEFT: tool panel -->
+        <aside class="editor-sidebar">
+          <div class="sidebar-group">
+            <h2 class="sidebar-title">Document</h2>
+            <label class="upload-box" id="dropzone">
+              <input type="file" id="fileInput" accept="application/pdf" />
+              <span class="upload-icon">📂</span>
+              <span id="uploadLabel">Upload PDF</span>
+            </label>
+            <p class="status tiny" id="pickStatus"></p>
+          </div>
+
+          <div class="sidebar-group">
+            <h2 class="sidebar-title">Tools</h2>
+            <div class="tool-buttons" id="toolbar">
+              <button class="tool-button" data-tool="text"><span>🅣</span> Add Text</button>
+              <button class="tool-button" data-tool="highlight"><span>🖍️</span> Highlight</button>
+              <button class="tool-button" data-tool="pen"><span>✏️</span> Draw / Pen</button>
+              <button class="tool-button" data-tool="rect"><span>▭</span> Rectangle</button>
+              <button class="tool-button" data-tool="stamp"><span>✍️</span> Signature / Stamp</button>
+            </div>
+          </div>
+
+          <div class="sidebar-group" id="textProps">
+            <h2 class="sidebar-title">Text Properties</h2>
+
+            <label class="opt-row">
+              <span>Font</span>
+              <select id="fontFamily">
+                <option value="Helvetica" selected>Helvetica</option>
+                <option value="Times">Times Roman</option>
+                <option value="Courier">Courier</option>
+              </select>
+            </label>
+
+            <label class="opt-row">
+              <span>Size</span>
+              <input type="number" id="fontSizeInput" class="num-input" list="sizeList"
+                     value="18" min="4" max="300" />
+            </label>
+            <datalist id="sizeList">
+              <option value="8"></option><option value="10"></option>
+              <option value="12"></option><option value="14"></option>
+              <option value="16"></option><option value="18"></option>
+              <option value="20"></option><option value="24"></option>
+              <option value="28"></option><option value="32"></option>
+              <option value="36"></option><option value="48"></option>
+              <option value="60"></option><option value="72"></option>
+            </datalist>
+
+            <label class="opt-row">
+              <span>Color</span>
+              <span class="color-controls">
+                <select id="colorPreset">
+                  <option value="#000000" selected>Black</option>
+                  <option value="#404040">Dark Gray</option>
+                  <option value="#808080">Gray</option>
+                  <option value="#1d4ed8">Blue</option>
+                  <option value="#dc2626">Red</option>
+                  <option value="#16a34a">Green</option>
+                  <option value="#ea580c">Orange</option>
+                  <option value="#7c3aed">Purple</option>
+                  <option value="#92400e">Brown</option>
+                  <option value="custom">Custom…</option>
+                </select>
+                <input type="color" id="colorPicker" value="#000000" title="Pick a color" />
+              </span>
+            </label>
+
+            <div class="fmt-row" role="group" aria-label="Text style">
+              <button class="fmt-btn" id="boldBtn" title="Bold"><b>B</b></button>
+              <button class="fmt-btn" id="italicBtn" title="Italic"><i>I</i></button>
+              <button class="fmt-btn" id="underlineBtn" title="Underline"><u>U</u></button>
+            </div>
+
+            <div class="fmt-row" role="group" aria-label="Alignment">
+              <button class="fmt-btn" id="alignLeft" title="Align left">◀</button>
+              <button class="fmt-btn" id="alignCenter" title="Align center">■</button>
+              <button class="fmt-btn" id="alignRight" title="Align right">▶</button>
+            </div>
+
+            <label class="opt-row">
+              <span>Opacity</span>
+              <input type="range" id="opacity" min="10" max="100" value="100" />
+            </label>
+
+            <label class="opt-row">
+              <span>Rotation</span>
+              <input type="number" id="rotation" class="num-input" value="0"
+                     min="-180" max="180" step="5" />
+            </label>
+
+            <div class="fmt-row">
+              <button class="btn-sm" id="bringForward">Bring Forward</button>
+              <button class="btn-sm" id="sendBackward">Send Backward</button>
+            </div>
+
+            <button class="btn-sm danger block" id="deleteBox">Delete Text Box</button>
+
+            <p class="props-hint tiny" id="propsHint">
+              Select or add a text box to edit its style.
+            </p>
+          </div>
+
+          <div class="sidebar-group" id="editGroup">
+            <h2 class="sidebar-title">Edit</h2>
+            <div class="tool-buttons">
+              <button class="tool-button ghost" id="undoBtn"><span>↩</span> Undo</button>
+              <button class="tool-button ghost" id="clearBtn"><span>🗑️</span> Clear Page</button>
+            </div>
+          </div>
+
+          <div class="editor-actions">
+            <button class="btn btn-primary block" id="exportBtn">Export PDF</button>
+            <p class="status tiny" id="status"></p>
+          </div>
+        </aside>
+
+        <!-- RIGHT: PDF workspace -->
+        <main class="editor-main">
+          <!-- Empty state: visible only when no PDF is loaded -->
+          <div class="empty-state" id="emptyState">
+            <div class="empty-card">
+              <div class="empty-icon">📄</div>
+              <h2>No PDF loaded yet</h2>
+              <p>Upload a PDF from the panel on the left to start adding text, highlights, drawings, and marks.</p>
+            </div>
+          </div>
+
+          <!-- Editor area: visible only when a PDF is loaded -->
+          <div class="pdf-editor-area" id="pdfEditorArea">
+            <div class="workspace-bar">
+              <div class="page-controls">
+                <button class="btn-sm" id="prevBtn">‹ Previous</button>
+                <span id="pageIndicator">Page 1 / 1</span>
+                <button class="btn-sm" id="nextBtn">Next ›</button>
+              </div>
+              <span class="anno-count" id="annoCount">No annotations on this page yet.</span>
+            </div>
+
+            <div class="pdf-stage" id="pdfStage">
+              <canvas id="pdfCanvas"></canvas>
+              <div class="annotation-layer" id="annotationLayer">
+                <canvas id="overlayCanvas"></canvas>
+              </div>
+            </div>
+
+            <p class="tool-hint" id="toolHint">Pick a tool from the left, then work on the page.</p>
+          </div>
+        </main>
+      </div>
+    </div>
+  </main>
+
+  <!-- pdf.js renders page previews; pdf-lib saves the edited PDF; interact.js
+       powers draggable/resizable text boxes. All via CDN. -->
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.27/dist/interact.min.js"></script>
+  <script src="../js/edit.js"></script>
+</body>
+</html>
