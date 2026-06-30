@@ -231,6 +231,32 @@ h3 {
   transform: translateY(-2px);
 }
 
+.btn-kofi {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #ff5f5f;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btn-kofi:hover {
+  background: #e04848;
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.btn-kofi img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
