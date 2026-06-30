@@ -876,7 +876,7 @@ h3 {
   display: block;
 }
 
-/* Shapes tool popover */
+/* Shapes inline grid (collapsible under the Shapes button) */
 .shape-tool-wrap {
   position: relative;
 }
@@ -884,27 +884,29 @@ h3 {
   margin-left: auto;
   font-size: 0.7rem;
   width: auto;
+  transition: transform 0.18s ease;
 }
-.shape-popover {
-  position: absolute;
-  z-index: 30;
-  top: calc(100% + 4px);
-  left: 0;
-  right: 0;
+.shape-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
-  padding: 8px;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-hover);
+  padding: 8px 0 4px;
+  overflow: hidden;
+  transition: max-height 0.22s ease, opacity 0.18s ease, padding 0.18s ease;
+  max-height: 300px;
+  opacity: 1;
+}
+.shape-grid.hidden {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+  pointer-events: none;
 }
 .shape-opt {
   border: 1px solid var(--border);
   background: #fff;
   border-radius: var(--radius-sm);
-  padding: 8px 0;
+  padding: 10px 0;
   font-size: 1.1rem;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
@@ -923,8 +925,6 @@ h3 {
   flex: 1;
   min-width: 0;
 }
-
-/* ---- Text Properties (formatting) panel ---- */
 .num-input {
   width: 90px;
   padding: 6px 8px;

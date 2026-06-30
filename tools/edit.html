@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edit PDF — CleanPDF</title>
   <meta name="description" content="Add text, highlights, drawings, and simple marks to your PDF, entirely in your browser. No uploads." />
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css?v=2" />
 </head>
 <body>
   <header class="site-header">
@@ -59,10 +59,10 @@
               <button class="tool-button" data-tool="highlight"><span>🖍</span> Highlight</button>
 
               <div class="shape-tool-wrap">
-                <button class="tool-button" id="shapesBtn" data-tool="shape">
-                  <span>⬜</span> Shapes <span class="caret">▼</span>
+                <button class="tool-button collapsible-tool" id="shapesBtn" data-tool="shape" aria-expanded="true">
+                  <span>⬜</span> Shapes <span class="caret" id="shapesCaret">▼</span>
                 </button>
-                <div class="shape-popover" id="shapePopover" hidden>
+                <div class="shape-grid" id="shapeGrid">
                   <button class="shape-opt" data-shape="rect" title="Rectangle">▭</button>
                   <button class="shape-opt" data-shape="roundRect" title="Rounded Rectangle">▢</button>
                   <button class="shape-opt" data-shape="circle" title="Circle">●</button>
@@ -284,6 +284,6 @@
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.27/dist/interact.min.js"></script>
-  <script src="../js/edit.js"></script>
+  <script src="../js/edit.js?v=2"></script>
 </body>
 </html>

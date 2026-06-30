@@ -102,7 +102,8 @@
 
   const toolbar = document.getElementById("toolbar");
   const shapesBtn = document.getElementById("shapesBtn");
-  const shapePopover = document.getElementById("shapePopover");
+  const shapeGrid = document.getElementById("shapeGrid");
+  const shapesCaret = document.getElementById("shapesCaret");
   const toolHint = document.getElementById("toolHint");
 
   // Text panel
@@ -445,8 +446,10 @@
   toolbar.querySelectorAll(".tool-button[data-tool]").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       if (btn.id === "shapesBtn") {
-        // Toggle the shape picker; also activate the shape tool.
-        shapePopover.hidden = !shapePopover.hidden;
+        // Toggle the shape grid open/closed; also activate the shape tool.
+        const isHidden = shapeGrid.classList.toggle("hidden");
+        shapesCaret.textContent = isHidden ? "▶" : "▼";
+        shapesBtn.setAttribute("aria-expanded", String(!isHidden));
         setActiveTool("shape");
         e.stopPropagation();
         return;
@@ -454,19 +457,22 @@
       setActiveTool(btn.dataset.tool);
     });
   });
-  shapePopover.querySelectorAll(".shape-opt").forEach((opt) => {
+  shapeGrid.querySelectorAll(".shape-opt").forEach((opt) => {
     opt.addEventListener("click", () => {
       currentShape = opt.dataset.shape;
-      shapePopover.querySelectorAll(".shape-opt").forEach((o) =>
+      shapeGrid.querySelectorAll(".shape-opt").forEach((o) =>
         o.classList.toggle("active", o === opt)
       );
-      shapePopover.hidden = true;
       setActiveTool("shape");
     });
   });
-  // Close the popover when clicking elsewhere.
+  // Close shape grid when clicking elsewhere.
   document.addEventListener("click", (e) => {
-    if (!e.target.closest(".shape-tool-wrap")) shapePopover.hidden = true;
+    if (!e.target.closest(".shape-tool-wrap")) {
+      shapeGrid.classList.add("hidden");
+      shapesCaret.textContent = "▶";
+      shapesBtn.setAttribute("aria-expanded", "false");
+    }
   });
 
   // ------------------------------------------------------------
@@ -1407,6 +1413,11 @@
       if (caret) caret.textContent = collapsed ? "▶" : "▼";
     });
   });
+
+  // Shape grid starts collapsed until the user opens it.
+  shapeGrid.classList.add("hidden");
+  shapesCaret.textContent = "▶";
+  shapesBtn.setAttribute("aria-expanded", "false");
 
   updateLoadedView();
   updatePanels();
